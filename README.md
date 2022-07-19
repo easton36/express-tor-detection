@@ -2,12 +2,15 @@
   
 
 # express-tor-detection
+ExpressJS middlewear to manage users connecting from a TOR exit node 
 
-ExpressJS middlewear to manage users connection from a TOR exit node 
+  ![License](https://img.shields.io/github/license/easton36/express-tor-detection)
+  ![Version](https://img.shields.io/npm/v/express-tor-detection)
+  ![Downloads](https://img.shields.io/npm/dt/express-tor-detection)
 
-### Read more about TOR exit node detection: [here](https://2019.www.torproject.org/projects/tordnsel.html.en)
+#### Read more about TOR exit node detection: [here](https://2019.www.torproject.org/projects/tordnsel.html.en)
 
-### Read more about using middlewear with Express [here](https://expressjs.com/en/guide/using-middleware.html)
+#### Read more about using middlewear with Express [here](https://expressjs.com/en/guide/using-middleware.html)
 
 ## Installation
 Installation is done using the
