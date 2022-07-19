@@ -3,7 +3,7 @@
 
 # express-tor-detection
 
-ExpressJS middlewear to manage users connection from a TOR exit node 
+ExpressJS middlewear to manage users connecting from a TOR exit node 
 
 ### Read more about TOR exit node detection: [here](https://2019.www.torproject.org/projects/tordnsel.html.en)
 
