@@ -2,8 +2,11 @@
   "name": "express-tor-detection",
   "version": "1.0.0",
   "description": "ExpressJS middlewear to manage users connection from a TOR exit node",
-  "main": "index.js",
-  "scripts": {},
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/easton36/express-tor-detection.git"
@@ -14,8 +17,8 @@
     "exit node",
     "detection"
   ],
-  "author": "Easton",
-  "license": "ISC",
+  "author": "Easton (https://easton.gg)",
+  "license": "MIT License",
   "bugs": {
     "url": "https://github.com/easton36/express-tor-detection/issues"
   },
