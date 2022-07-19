@@ -1,5 +1,5 @@
 const express = require('express');
-const torDetectionMiddlewear = require('../index');
+const torDetectionMiddlewear = require('../dist/index');
 
 const middlewearConfig = {
 	block: true, // block TOR exit node requests
