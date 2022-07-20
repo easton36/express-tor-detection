@@ -6,8 +6,13 @@ const TOR_DNS_LOOKUP_URL = "dnsel.torproject.org";
 interface Config {
     block: boolean;
     userKey: string;
-    errorFormat: string;
     errorMessage: string;
+    redirect?: {
+        clearNetDomain: string; // domain name for clearnet traffic
+        torDomain: string; //domain name for tor traffic
+        redirectClearNet: boolean; //redirect clearnet traffic if accessing from tor domain
+        redirectTor: boolean; //redirect tor traffic if accessing from clearnet domain
+    }
 }
 
 // reverse the sections of an ip address
@@ -41,7 +46,6 @@ const lookupDns = (ip: string): Promise<boolean> => new Promise((res, rej): void
 const middlewear = (config: Config = {
     block: false,
     userKey: 'isTor',
-    errorFormat: 'json',
     errorMessage: 'You are not allowed to access this resource'
 }) => async (req: any, res: any, next: any): Promise<void> => {
     // get the hostname from the request
@@ -50,18 +54,24 @@ const middlewear = (config: Config = {
     if(ip.substring(0, 7) === '::ffff:'){
         ip = ip.substring(7);
     }
+    //get hostname
+    let hostname: string = req.hostname;
 
     // use dns lookup to get the hostname
     let isTor: boolean = await lookupDns(ip);
     // if the request is from a tor exit node
     if(config.block && isTor){
-        // if the request is a json request
-        if(config.errorFormat === 'json'){
-            return res.status(403).json({
-                status: config.errorMessage,
-            });
+        return next(Error(config.errorMessage));
+    }
+
+    //manage redirects
+    if(config.redirect){
+        if(isTor && config.redirect.redirectTor && config.redirect.torDomain !== hostname){
+            return res.redirect(`http://${config.redirect.torDomain}`);
         }
-        return res.status(403).send(config.errorMessage);
+        if(!isTor && config.redirect.redirectClearNet && config.redirect.clearNetDomain !== hostname){
+            return res.redirect(`http://${config.redirect.clearNetDomain}`);
+        }
     }
 
     // add the user key to the request
